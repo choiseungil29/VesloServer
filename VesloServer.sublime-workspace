@@ -1,0 +1,202 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"backg",
+				"background-image"
+			],
+			[
+				"gallery",
+				"gallery-item"
+			],
+			[
+				"background",
+				"background-color"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"galler",
+				"gallery-item"
+			],
+			[
+				"pdd",
+				"padding-bottom"
+			],
+			[
+				"backgro",
+				"background-size"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 207.0,
+		"selected_items":
+		[
+			[
+				"brow",
+				"Preferences: Browse Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 476.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/clogic/Downloads/java-sdk/src/Coolsms.java",
+		"/Users/clogic/Workspace/Washing/app/google-services.json",
+		"/Users/clogic/Downloads/facebook-android-sdk-4.6.0/gradle.properties",
+		"/Users/clogic/Workspace/Washing/app/build.gradle",
+		"/Users/clogic/Downloads/Washing/gradle/wrapper/gradle-wrapper.properties",
+		"/Users/clogic/Workspace/Moving Key directory/Android/OldSource/MovingKeyLib/src/com/bluejinni/movingkeylib/keyboard/Thai.java",
+		"/Users/clogic/Workspace/Moving Key directory/Android/OldSource/MovingKeyLib/src/com/bluejinni/movingkeylib/keyboard/Bulgarian.java",
+		"/Users/clogic/Downloads/kakao-android-sdk-project-1.1.2-full/build.gradle",
+		"/Users/clogic/Downloads/kakao-android-sdk-project-1.1.2-full/util/build.gradle",
+		"/Users/clogic/Downloads/kakao-android-sdk-project-1.1.2-full/usermgmt/build.gradle",
+		"/Users/clogic/Workspace/Moving Key/Android/local.properties",
+		"/Users/clogic/Workspace/MovingKey/gradle/wrapper/gradle-wrapper.properties",
+		"/Users/clogic/Downloads/words_1.dict",
+		"/Users/clogic/Workspace/Blog/ref/7강 - CSS 레이아웃/with-sidebar/04-add-gallery.html",
+		"/Users/clogic/Workspace/Blog/ref/7강 - CSS 레이아웃/with-sidebar/05-add-clearfix.html",
+		"/Users/clogic/Workspace/Blog/ref/lec-css3/8강 - CSS 애니메이션/transition.html",
+		"/Users/clogic/Workspace/Blog/ref/lec-css3/8강 - CSS 애니메이션/animation.html",
+		"/Users/clogic/Workspace/Blog/ref/7강 - CSS 레이아웃/with-top-header/06-add-jquery-function.html",
+		"/Users/clogic/Workspace/Blog/index.html",
+		"/Users/clogic/Workspace/Blog/jquery.js",
+		"/Users/clogic/Workspace/Blog/ref/lec-css3/8강 - CSS 애니메이션/jquery.js",
+		"/Users/clogic/Workspace/Blog/ref/lec-css3/8강 - CSS 애니메이션/arrow-button-sprite-68x68.png",
+		"/Users/clogic/Workspace/Blog/ref/lec-css3/12강 - 특이한 태그 (2)/application/img-background-cover.html",
+		"/Users/clogic/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/clogic/Workspace/Blog/ref/7강 - CSS 레이아웃/with-top-header/01-basic-structure.html",
+		"/Users/clogic/Workspace/Blog/ref/lec-css3/12강 - 특이한 태그 (2)/video.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ฦ​",
+			"ผ",
+			"KAKAO_SDK_VERSION",
+			"project.kakao_sdk_version",
+			"project.kakao_sdk_group",
+			"dependencies",
+			"kakao",
+			"black"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 331.0,
+	"status_bar_visible": true
+}
