@@ -68,6 +68,7 @@
 	},
 	"file_history":
 	[
+		"/Users/clogic/Workspace/VesloServer/.gitignore",
 		"/Users/clogic/Downloads/java-sdk/src/Coolsms.java",
 		"/Users/clogic/Workspace/Washing/app/google-services.json",
 		"/Users/clogic/Downloads/facebook-android-sdk-4.6.0/gradle.properties",
@@ -197,6 +198,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 331.0,
+	"side_bar_width": 248.0,
 	"status_bar_visible": true
 }
