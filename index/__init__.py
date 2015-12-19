@@ -8,7 +8,8 @@ from flask.ext.login import LoginManager
 
 app = Flask(__name__)
 app.secret_key = 'Velslook154288tmddlf' # Flask-Login secret key
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://clogic:ok154288tmddlf@localhost/Veslo" # db uri
+#app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://clogic:ok154288tmddlf@localhost/Veslo" # db uri
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://itnpxmghkouqge:DrNcaRJ86jmr4IwHi9NK3mzHfP@ec2-54-83-204-159.compute-1.amazonaws.com:5432/d5inl38ocf5nlu" # db server uri
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()
