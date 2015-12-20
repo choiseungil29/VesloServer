@@ -4,4 +4,4 @@ from index import app
 
 @app.route('/')
 def main():
-	return 'Hello Veslo!'
+	return '형채형 바보!'
