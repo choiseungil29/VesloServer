@@ -24,6 +24,12 @@ def signup_with_login_kakao():
     id = request.args['id']
     username = request.args['username']
 
+    result['id'] = id
+    result['username'] = username
+
+    print id
+    print username
+
     if index.urls.isLogin(id):
         result['requestCode'] = 3
         result['requestMessage'] = 'already login'
