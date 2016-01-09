@@ -17,7 +17,7 @@ def signup():
     return '회원가입에 성공하였습니다.'
 
 # kakao id값이 넘어온다.
-@app.route('/signup_with_login/kakao', methods=['GET'])
+@app.route('/signup_with_login/kakao', methods=['GET', 'POST'])
 def signup_with_login_kakao():
     result = {}
 
