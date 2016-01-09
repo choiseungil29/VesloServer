@@ -17,7 +17,7 @@ def signup():
     result = {}
     result['requestCode'] = 1
     result['requestMessage'] = 'success'
-    return json.dums(result, ensure_ascii=False)
+    return json.dumps(result, ensure_ascii=False)
 
 # kakao id값이 넘어온다.
 @app.route('/signup_with_login/kakao', methods=['GET', 'POST'])
