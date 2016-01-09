@@ -24,14 +24,16 @@ def signup():
 def signup_with_login_kakao():
     result = {}
 
-    id = request.args['id']
-    username = request.args['username']
+    id = str(request.args['id'])
+    username = str(request.args['username'])
+
+    app.logger.info('id type : ' + id)
+    app.logger.info('username type : ' + username)
+    app.logger.info(type(str(id)))
+    app.logger.info(type(str(username)))
 
     result['id'] = id
     result['username'] = username
-
-    print id
-    print username
 
     if index.urls.isLogin(id):
         print '1'
@@ -46,7 +48,6 @@ def signup_with_login_kakao():
         session[id] = id
         return json.dumps(result, ensure_ascii=False)
 
-    print '3'
     user = User()
     user.type = 'KAKAO'
     user.id = id
