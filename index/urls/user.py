@@ -7,8 +7,6 @@ from index.models.user import User
 
 from flask import request, session
 
-from sqlalchemy.orm.exc import NoResultFound
-
 import json
 import index.urls
 
@@ -27,25 +25,16 @@ def signup_with_login_kakao():
     id = request.args['id']
     username = request.args['username']
 
-    app.logger.info('id type : ' + id)
-    app.logger.info('username type : ' + username)
-    app.logger.info(type(id))
-    app.logger.info(type(username))
-
-    print type(id)
-    print type(username)
-
-    result['id'] = id
-    result['username'] = username
+    result['user'] = {}
+    result['user']['id'] = id
+    result['user']['username'] = username
 
     if index.urls.isLogin(id):
-        print '1'
         result['requestCode'] = 3
         result['requestMessage'] = 'already login'
         return json.dumps(result, ensure_ascii=False)
 
     if index.urls.isExistUser(id):
-        print '2'
         result['requestCode'] = 2
         result['requestMessage'] = 'success login'
         session[id] = id
@@ -58,11 +47,9 @@ def signup_with_login_kakao():
     db_session.add(user)
     db_session.commit()
 
-    print '4'
     result['requestCode'] = 1
     result['requestMessage'] = 'success signup'
 
-    print '5'
     return json.dumps(result, ensure_ascii=False)
 
 
