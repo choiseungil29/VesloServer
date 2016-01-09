@@ -24,8 +24,8 @@ def signup():
 def signup_with_login_kakao():
     result = {}
 
-    id = str(request.args['id'])
-    username = str(request.args['username'])
+    id = request.args['id']
+    username = request.args['username']
 
     app.logger.info('id type : ' + id)
     app.logger.info('username type : ' + username)
