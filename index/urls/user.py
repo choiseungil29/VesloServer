@@ -29,8 +29,11 @@ def signup_with_login_kakao():
 
     app.logger.info('id type : ' + id)
     app.logger.info('username type : ' + username)
-    app.logger.info(type(str(id)))
-    app.logger.info(type(str(username)))
+    app.logger.info(type(id))
+    app.logger.info(type(username))
+
+    print type(id)
+    print type(username)
 
     result['id'] = id
     result['username'] = username
