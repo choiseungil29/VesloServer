@@ -38,6 +38,7 @@ def signup_with_login_kakao():
         result['requestCode'] = 2
         result['requestMessage'] = 'success login'
         session[id] = id
+        result['session_id'] = session[id]
         return json.dumps(result, ensure_ascii=False)
 
     user = User()
