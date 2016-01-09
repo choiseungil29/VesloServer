@@ -9,6 +9,8 @@ from index.models.user import User
 
 from index import db_session
 
+from sqlalchemy.orm.exc import NoResultFound
+
 def isExistUser(userId):
     query = db_session.query(User).filter_by(id=userId)
     try:
