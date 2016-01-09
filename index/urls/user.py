@@ -31,16 +31,19 @@ def signup_with_login_kakao():
     print username
 
     if index.urls.isLogin(id):
+        print '1'
         result['requestCode'] = 3
         result['requestMessage'] = 'already login'
         return json.dumps(result, ensure_ascii=False)
 
     if index.urls.isExistUser(id):
+        print '2'
         result['requestCode'] = 2
         result['requestMessage'] = 'success login'
         session[id] = id
         return json.dumps(result, ensure_ascii=False)
 
+    print '3'
     user = User()
     user.type = 'KAKAO'
     user.id = id
@@ -48,9 +51,11 @@ def signup_with_login_kakao():
     db_session.add(user)
     db_session.commit()
 
+    print '4'
     result['requestCode'] = 1
     result['requestMessage'] = 'success signup'
 
+    print '5'
     return json.dumps(result, ensure_ascii=False)
 
 
