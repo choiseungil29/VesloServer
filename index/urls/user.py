@@ -14,15 +14,18 @@ import index.urls
 
 @app.route('/signup')
 def signup():
-    return '회원가입에 성공하였습니다.'
+    result = {}
+    result['requestCode'] = 1
+    result['requestMessage'] = 'success'
+    return json.dums(result, ensure_ascii=False)
 
 # kakao id값이 넘어온다.
 @app.route('/signup_with_login/kakao', methods=['GET', 'POST'])
 def signup_with_login_kakao():
     result = {}
 
-    id = request.args.get('id')
-    username = request.args.get('username')
+    id = request.args['id']
+    username = request.args['username']
 
     result['id'] = id
     result['username'] = username
