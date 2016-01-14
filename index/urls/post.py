@@ -59,6 +59,10 @@ def get_all_meeting():
     result = {}
     id = request.form['id']
 
+    app.logger.info('welcome')
+    app.logger.info('id : ' + id)
+    app.logger.info('session : ' + session[id])
+
     if index.urls.isLogin(id) == False:
         result['requestCode'] = -1
         result['requestMessage'] = '로그인이 필요한 서비스입니다.'
