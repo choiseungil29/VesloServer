@@ -59,7 +59,6 @@ def get_all_meeting():
     result = {}
     id = request.form['id']
 
-    #app.logger.info(request.form['id'])
     if index.urls.isLogin(id) == False:
         result['requestCode'] = -1
         result['requestMessage'] = '로그인이 필요한 서비스입니다.'
@@ -75,11 +74,20 @@ def get_all_meeting():
 
     result['meeting'] = []
     for post in post_all:
-        post_item = {}
-        post_item['describe'] = post.describe
-        post_item['writer_id'] = post.writer_id
+        item = {}
+        item['writer_id'] = post.writer_id
+        item['origin'] = post.origin
+        item['origin_lat'] = post.origin_lat
+        item['origin_long'] = post.origin_long
+        item['dest'] = post.dest
+        item['dest_lat'] = post.dest_lat
+        item['dest_long'] = post.dest_long
+        item['departure_time'] = post.departure_time
+        item['arrival_time'] = post.arrival_time
+        item['registered_on'] = post.registered_on.microsecond # datetime to milliseconds
+        item['describe'] = post.describe
 
-        result['meeting'].append(post_item)
+        result['meeting'].append(item)
         #app.logger.info('post ' + post.describe)
 
     return json.dumps(result)

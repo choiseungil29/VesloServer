@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 from index import db
+from index import app
 
 import datetime
 
@@ -28,3 +29,11 @@ class User(db.Model):
  
     def get_id(self):
         return unicode(self.id)
+
+    def to_json(self):
+        item = {}
+        item['id'] = self.id
+        item['username'] = self.username
+        item['type'] = self.type
+        item['registered_on'] = str(self.registered_on)
+        return item
