@@ -27,7 +27,7 @@ login_manager.init_app(app)
 from index.models import user
 from index.models import post
 
-db.drop_all()
+# db.drop_all()
 db.create_all()
 db_session = db.session()
 
