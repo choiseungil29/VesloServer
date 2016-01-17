@@ -20,9 +20,7 @@ def post_meeting():
 
     session = request.form['session']
 
-    try:
-        user = db_session.query(User).filter_by(session=session).one()
-    except NoResultFound, e:
+    if index.urls.existUserBySession(session) == False:
         result['requestCode'] = -1
         result['requestMessage'] = '등록되지 않은 계정입니다.'
         return json.dumps(result, ensure_ascii=False)
