@@ -18,16 +18,22 @@ def post_meeting():
 
     result = {}
 
-    if index.urls.isLogin(request.form.get('writer_id')) == False:
+    session = request.form['session']
+
+    try:
+        user = db_session.query(User).filter_by(session=session).one()
+    except NoResultFound, e:
         result['requestCode'] = -1
-        result['requestMessage'] = '로그인이 필요한 서비스입니다.'
+        result['requestMessage'] = '등록되지 않은 계정입니다.'
         return json.dumps(result, ensure_ascii=False)
 
     result['requestCode'] = 1
     result['requestMessage'] = '일정이 등록되었습니다.'
 
     post = Post()
-    post.writer_id = request.form['writer_id']
+    user = db_session.query(User).filter_by(session=session).one()
+    #post.writer_id = user.id
+    post.session = user.session
     
     post.origin = request.form['origin']
     post.origin_lat = request.form['origin_lat']
@@ -45,11 +51,7 @@ def post_meeting():
     db_session.add(post)
     db_session.commit()
 
-    result['post'] = {}
-    result['post']['writer_id'] = post.writer_id
-    result['post']['id'] = post.id
-    result['post']['origin'] = post.origin
-    result['post']['dest'] = post.dest
+    result['post'] = post.to_json()
 
     return json.dumps(result, ensure_ascii=True)
 
@@ -57,23 +59,19 @@ def post_meeting():
 def get_all_meeting():
 
     result = {}
-    id = request.form['id']
+    session = request.form['session']
 
-    app.logger.info('welcome')
-    app.logger.info('id : ' + id)
-    app.logger.info('session : ' + session[id])
-
-    if index.urls.isLogin(id) == False:
+    if index.urls.existUserBySession(session) == False:
         result['requestCode'] = -1
-        result['requestMessage'] = '로그인이 필요한 서비스입니다.'
-        return json.dumps(result, ensure_ascii=False)
+        result['requestMessage'] = '등록되지 않은 계정입니다.'
+        return json.dumps(result, ensure_ascii=False)        
 
     result['requestCode'] = 1
     result['requestMessage'] = '조회에 성공했습니다.'
 
     post_all = []
 
-    query = db_session.query(Post).filter_by(writer_id=id)
+    query = db_session.query(Post).filter_by(session=session)
     post_all = query.all()
 
     result['meeting'] = []

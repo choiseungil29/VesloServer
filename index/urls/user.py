@@ -12,13 +12,6 @@ from flask import request, session, redirect, url_for
 import json
 import index.urls
 
-@app.route('/signup')
-def signup():
-    result = {}
-    result['requestCode'] = 1
-    result['requestMessage'] = 'success'
-    return json.dumps(result, ensure_ascii=False)
-
 @app.route('/login/kakao', methods=['GET'])
 def login_kakao():
     result = {}
@@ -26,7 +19,7 @@ def login_kakao():
     id = request.args['id']
     username = request.args['username']
 
-    if index.urls.isExistUser(id) == False:
+    if index.urls.existUserById(id) == False:
         user = User()
         user.type = 'KAKAO'
         user.id = id
@@ -37,7 +30,8 @@ def login_kakao():
         app.logger.info('user : ' + str(user.to_json()))
         result['user'] = user.to_json()
     
-    session[id] = user.id
+    user = db_session.query(User).filter_by(id=id).one()
+    result['user'] = user.to_json()
     result['requestCode'] = 1
     result['requestMessage'] = 'success login'
     return json.dumps(result, ensure_ascii=False)

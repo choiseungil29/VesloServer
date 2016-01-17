@@ -11,8 +11,7 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     describe = db.Column('describe', db.String) # 내용
-
-    writer_id = db.Column('writer_id', db.String) # 작성자
+    session = db.Column('session', db.String)
     
     origin = db.Column('origin', db.String) # 출발지
     origin_lat = db.Column('origin_lat', db.Float) # 좌표
@@ -29,3 +28,11 @@ class Post(db.Model):
 
     def __init__(self):
         pass
+
+    def to_json(self):
+        item = {}
+        item['id'] = self.id
+        item['session'] = self.session
+        item['origin'] = self.origin
+        item['dest'] = self.dest
+        return item

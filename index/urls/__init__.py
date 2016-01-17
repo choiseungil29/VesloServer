@@ -12,15 +12,16 @@ from index import db_session
 
 from sqlalchemy.orm.exc import NoResultFound
 
-def isExistUser(userId):
-    query = db_session.query(User).filter_by(id=userId)
+def existUserById(id):
     try:
-        query.one()
+        db_session.query(User).filter_by(id=id).one()
     except NoResultFound, e:
         return False
     return True
 
-def isLogin(userId):
-    if userId in session:
-        return True
-    return False
+def existUserBySession(session):
+    try:
+        db_session.query(User).filter_by(session=session).one()
+    except NoResultFound, e:
+        return False
+    return True
