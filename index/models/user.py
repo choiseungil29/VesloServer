@@ -1,9 +1,11 @@
 #-*- coding: utf-8 -*-
 
+import datetime
+import os
+import base64
+
 from index import db
 from index import app
-
-import datetime
 
 class User(db.Model):
 
@@ -14,9 +16,12 @@ class User(db.Model):
     password = db.Column('password', db.String, nullable=True)
     type = db.Column('type', db.String)
     registered_on = db.Column('registered_on', db.DateTime, default=db.func.now())
+    session = db.Column('session', db.String, unique=True)
 
     def __init__(self):
         self.password = None
+        self.session = base64.b64encode(os.urandom(64)).decode('utf-8')
+        app.logger.info('session : ' + self.session)
 
     def is_authenticated(self):
         return True
@@ -36,4 +41,5 @@ class User(db.Model):
         item['username'] = self.username
         item['type'] = self.type
         item['registered_on'] = str(self.registered_on)
+        item['session'] = self.session
         return item
