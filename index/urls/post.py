@@ -74,20 +74,7 @@ def get_all_meeting():
 
     result['meeting'] = []
     for post in post_all:
-        item = {}
-        item['writer_id'] = post.writer_id
-        item['origin'] = post.origin
-        item['origin_lat'] = post.origin_lat
-        item['origin_long'] = post.origin_long
-        item['dest'] = post.dest
-        item['dest_lat'] = post.dest_lat
-        item['dest_long'] = post.dest_long
-        item['departure_time'] = post.departure_time
-        item['arrival_time'] = post.arrival_time
-        item['registered_on'] = post.registered_on.microsecond # datetime to milliseconds
-        item['describe'] = post.describe
-
-        result['meeting'].append(item)
+        result['meeting'].append(post.to_json())
         #app.logger.info('post ' + post.describe)
 
     return json.dumps(result)

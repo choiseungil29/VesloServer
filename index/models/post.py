@@ -34,5 +34,15 @@ class Post(db.Model):
         item['id'] = self.id
         item['session'] = self.session
         item['origin'] = self.origin
+        item['origin_lat'] = self.origin_lat
+        item['origin_long'] = self.origin_long
+
         item['dest'] = self.dest
+        item['dest_lat'] = self.dest_lat
+        item['dest_long'] = self.dest_long
+
+        item['departure_time'] = str(self.departure_time)
+        item['arrival_time'] = str(self.arrival_time)
+        item['registered_on'] = str(self.registered_on)
+        item['describe'] = self.describe
         return item
