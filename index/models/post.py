@@ -10,6 +10,7 @@ class Post(db.Model):
     __tablename__ = "Post"
 
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column('username', db.String)
     describe = db.Column('describe', db.String) # 내용
     session = db.Column('session', db.String)
     
@@ -25,12 +26,13 @@ class Post(db.Model):
     arrival_time = db.Column('time', db.DateTime) # 소요시간 
 
     registered_on = db.Column('registered_on', db.DateTime, default=db.func.now()) # 등록일자
-
+    
     def __init__(self):
         pass
 
     def to_json(self):
         item = {}
+        item['username'] = self.username
         item['id'] = self.id
         item['session'] = self.session
         item['origin'] = self.origin

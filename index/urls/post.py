@@ -17,7 +17,6 @@ import datetime
 def post_meeting():
 
     result = {}
-
     session = request.form['session']
 
     if index.urls.existUserBySession(session) == False:
@@ -30,7 +29,7 @@ def post_meeting():
 
     post = Post()
     user = db_session.query(User).filter_by(session=session).one()
-    #post.writer_id = user.id
+    post.username = user.username
     post.session = user.session
     
     post.origin = request.form['origin']
