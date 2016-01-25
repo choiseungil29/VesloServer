@@ -17,6 +17,7 @@ class User(db.Model):
     type = db.Column('type', db.String)
     registered_on = db.Column('registered_on', db.DateTime, default=db.func.now())
     session = db.Column('session', db.String, unique=True)
+    profile_img_url = db.Column('profile_img_url', db.String)
 
     def __init__(self):
         self.password = None
@@ -40,6 +41,7 @@ class User(db.Model):
         item['id'] = self.id
         item['username'] = self.username
         item['type'] = self.type
+        item['profile_img_url'] = self.profile_img_url
         item['registered_on'] = str(self.registered_on)
         item['session'] = self.session
         return item

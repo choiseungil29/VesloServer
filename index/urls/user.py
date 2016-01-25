@@ -20,16 +20,19 @@ def login_kakao():
 
     id = request.args['id']
     username = request.args['username']
+    profile_path = request.args['profile_path']
 
     if index.urls.existUserById(id) == False:
         user = User()
         user.type = 'KAKAO'
         user.id = id
         user.username = username
+        user.profile_img_url = profile_path
         db_session.add(user)
         db_session.commit()
 
         result['user'] = user.to_json()
+        return json.dumps(result, ensure_ascii=False)
     
     user = db_session.query(User).filter_by(id=id).one()
     result['user'] = user.to_json()
