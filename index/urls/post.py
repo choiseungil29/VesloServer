@@ -59,7 +59,7 @@ def regist_meeting():
         except NoResultFound, e:
             tag = Tag()
             tag.id = message
-            tag.count = 1`
+            tag.count = 1
             db_session.add(tag)
         db_session.commit()
 
