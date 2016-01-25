@@ -5,8 +5,8 @@ from index import db
 from index import db_session
 
 from index.models.user import User
-from index.models.post import Post
 from index.models.tag import Tag
+from index.models.meeting import Meeting
 
 from flask import request, session
 from werkzeug import secure_filename
@@ -31,7 +31,7 @@ def regist_meeting():
     result['requestCode'] = 1
     result['requestMessage'] = '일정이 등록되었습니다.'
 
-    post = Post()
+    post = Meeting()
     user = db_session.query(User).filter_by(session=session).one()
     post.username = user.username
     post.session = user.session
@@ -59,7 +59,7 @@ def regist_meeting():
         except NoResultFound, e:
             tag = Tag()
             tag.id = message
-            tag.count = 1
+            tag.count = 1`
             db_session.add(tag)
         db_session.commit()
 
