@@ -5,6 +5,7 @@ from flask import session
 from index.urls import url
 from index.urls import user
 from index.urls import post
+from index.urls import test
 
 from index.models.user import User
 

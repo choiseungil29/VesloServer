@@ -9,6 +9,8 @@ from index.models.user import User
 
 from flask import request, session, redirect, url_for
 
+from sqlalchemy.orm.exc import NoResultFound
+
 import json
 import index.urls
 
@@ -27,7 +29,6 @@ def login_kakao():
         db_session.add(user)
         db_session.commit()
 
-        app.logger.info('user : ' + str(user.to_json()))
         result['user'] = user.to_json()
     
     user = db_session.query(User).filter_by(id=id).one()
@@ -45,12 +46,26 @@ def getAllUsers():
     result['users'] = []
     for user in users:
         item = user.to_json()
-
         result['users'].append(item)
 
     return json.dumps(result)
 
+@app.route('/session/validate', methods=['POST'])
+def validateSession():
+    result = {}
 
+    session = request.form['session']
+    app.logger.info('session : ' + session)
+
+    if index.urls.existUserBySession(session) == False:
+        result['requestCode'] = -1
+        result['requestMessage'] = 'invalidate session'
+        result['errorSession'] = session
+        return json.dumps(result)
+
+    result['requestCode'] = 1
+    result['requestMessage'] = 'validate session'
+    return json.dumps(result)
 
 
 

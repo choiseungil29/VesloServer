@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"origi",
+				"origin_long"
+			],
+			[
 				"requ",
 				"requestMessage"
 			],
@@ -40,18 +44,10 @@
 	"buffers":
 	[
 		{
-			"file": "index/urls/post.py",
-			"settings":
-			{
-				"buffer_size": 2868,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "index/urls/__init__.py",
 			"settings":
 			{
-				"buffer_size": 507,
+				"buffer_size": 599,
 				"line_ending": "Unix"
 			}
 		},
@@ -64,10 +60,85 @@
 			}
 		},
 		{
+			"file": "index/models/user.py",
+			"settings":
+			{
+				"buffer_size": 1152,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index/urls/user.py",
+			"settings":
+			{
+				"buffer_size": 1660,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index/models/meeting.py",
+			"settings":
+			{
+				"buffer_size": 1701,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index/models/tag.py",
+			"settings":
+			{
+				"buffer_size": 364,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index/urls/test.py",
+			"settings":
+			{
+				"buffer_size": 219,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "run.py",
+			"settings":
+			{
+				"buffer_size": 118,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index/urls/url.py",
+			"settings":
+			{
+				"buffer_size": 92,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "#-*- coding: utf-8 -*-\n\nfrom index import app\nfrom index import db\nfrom index import db_session\n\nfrom index.models.user import User\nfrom index.models.post import Post\nfrom index.models.tag import Tag\n\nfrom flask import request, session\nfrom werkzeug import secure_filename\n\nfrom sqlalchemy.orm.exc import NoResultFound\n\nimport json\nimport index.urls\nimport datetime\n\n@app.route('/regist/meeting', methods=['POST'])\ndef regist_meeting():\n\n    result = {}\n    session = request.form['session']\n\n    if index.urls.existUserBySession(session) == False:\n        result['requestCode'] = -1\n        result['requestMessage'] = '등록되지 않은 계정입니다.'\n        return json.dumps(result, ensure_ascii=False)\n\n    result['requestCode'] = 1\n    result['requestMessage'] = '일정이 등록되었습니다.'\n\n    post = Post()\n    user = db_session.query(User).filter_by(session=session).one()\n    post.username = user.username\n    post.session = user.session\n    \n    post.origin = request.form['origin']\n    post.origin_lat = request.form['origin_lat']\n    post.origin_long = request.form['origin_long']\n\n    post.dest = request.form['dest']\n    post.dest_lat = request.form['dest_lat']\n    post.dest_long = request.form['dest_long']\n\n    post.departure_time = datetime.datetime.fromtimestamp(int(request.form['departure_time'])/1000.0) # long to datetime 필요\n    post.arrival_time = datetime.datetime.fromtimestamp(int(request.form['arrival_time'])/1000.0) # long to datetime 필요\n\n    post.describe = request.form['describe']\n\n    tags = [tag for tag in post.describe.split(' ') if tag.startswith('#')]\n    for message in tags:\n        query = db_session.query(Tag).filter_by(id=message)\n        tag = None\n        try:\n            tag = query.one()\n            tag.count += 1\n        except NoResultFound, e:\n            tag = Tag()\n            tag.id = message\n            tag.count = 1`\n            db_session.add(tag)\n        db_session.commit()\n\n    db_session.add(post)\n    db_session.commit()\n\n    result['post'] = post.to_json()\n\n    return json.dumps(result, ensure_ascii=True)\n\n@app.route('/like/meeting', methods=['GET'])\ndef like_meeting():\n\n    result = {}\n    session = request.form['session']\n    meeting_id = request.form['id']\n\n    meeting = db_session.query(Post).filter_by(id=meeting_id).one()\n\n    if session in meeting.likes:\n        meeting.likes.remove(session)\n    else:\n        meeting.likes.append(session)\n\n    result['requestCode'] = 1\n    result['requestMessage'] = 'Success like or unlike'\n    result['meeting'] = append.to_json()\n\n    return json.dumps(result, ensure_ascii=False)\n\n@app.route('/post/meeting/all', methods=['POST'])\ndef get_all_meeting():\n\n    result = {}\n    session = request.form['session']\n\n    if index.urls.existUserBySession(session) == False:\n        result['requestCode'] = -1\n        result['requestMessage'] = '등록되지 않은 계정입니다.'\n        return json.dumps(result, ensure_ascii=False)        \n\n    result['requestCode'] = 1\n    result['requestMessage'] = '조회에 성공했습니다.'\n\n    post_all = []\n\n    query = db_session.query(Post).filter_by(session=session)\n    post_all = query.all()\n\n    result['meeting'] = []\n    for post in post_all:\n        result['meeting'].append(post.to_json())\n        #app.logger.info('post ' + post.describe)\n\n    return json.dumps(result)\n\n@app.route('/regist/post', methods=['POST'])\ndef regist_post():\n    result = {}\n    session = request.form['session']\n\n    ALLOWD_EXTENSIONS = set(['jpg', 'jpeg', 'png', 'bmp'])\n\n    file = request.files['resource']\n    if file and allowed_file(file.filename):\n        pass\n\ndef allowed_file(filename):\n    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWD_EXTENSIONS\n\n\n\n\n\n\n",
+			"file": "index/urls/post.py",
+			"file_size": 3754,
+			"file_write_time": 1453449836000000,
+			"settings":
+			{
+				"buffer_size": 3665,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index/urls/search.py",
+			"settings":
+			{
+				"buffer_size": 21,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "index/__init__.py",
 			"settings":
 			{
-				"buffer_size": 1032,
+				"buffer_size": 1084,
 				"line_ending": "Unix"
 			}
 		}
@@ -104,11 +175,12 @@
 	},
 	"file_history":
 	[
+		"/Users/clogic/Workspace/VesloServer/index/models/like.py",
+		"/Users/clogic/Workspace/VesloServer/index/__init__.py",
+		"/Users/clogic/Workspace/VesloServer/index/urls/post.py",
 		"/Users/clogic/Workspace/VesloServer/index/models/user.py",
 		"/Users/clogic/Workspace/VesloServer/index/urls/user.py",
 		"/Users/clogic/Workspace/VesloServer/index/urls/__init__.py",
-		"/Users/clogic/Workspace/VesloServer/index/urls/post.py",
-		"/Users/clogic/Workspace/VesloServer/index/__init__.py",
 		"/Users/clogic/Workspace/VesloServer/index/models/post.py",
 		"/Users/clogic/Workspace/VesloServer/index/util/DB.py",
 		"/Users/clogic/Workspace/VesloServer/index/util/__init__.py",
@@ -186,23 +258,23 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 9,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "index/urls/post.py",
+					"file": "index/urls/__init__.py",
 					"settings":
 					{
-						"buffer_size": 2868,
+						"buffer_size": 599,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								202,
-								202
+								161,
+								161
 							]
 						],
 						"settings":
@@ -212,39 +284,13 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 15.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "index/urls/__init__.py",
-					"settings":
-					{
-						"buffer_size": 507,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "Procfile",
 					"settings":
 					{
@@ -270,19 +316,262 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "index/__init__.py",
+					"buffer": 2,
+					"file": "index/models/user.py",
 					"settings":
 					{
-						"buffer_size": 1032,
+						"buffer_size": 1152,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								597,
-								597
+								677,
+								677
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "index/urls/user.py",
+					"settings":
+					{
+						"buffer_size": 1660,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								222,
+								178
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "index/models/meeting.py",
+					"settings":
+					{
+						"buffer_size": 1701,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								182,
+								182
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "index/models/tag.py",
+					"settings":
+					{
+						"buffer_size": 364,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								364,
+								364
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "index/urls/test.py",
+					"settings":
+					{
+						"buffer_size": 219,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								185,
+								185
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "run.py",
+					"settings":
+					{
+						"buffer_size": 118,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								68,
+								68
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "index/urls/url.py",
+					"settings":
+					{
+						"buffer_size": 92,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "index/urls/post.py",
+					"settings":
+					{
+						"buffer_size": 3665,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								583,
+								583
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 161.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "index/urls/search.py",
+					"settings":
+					{
+						"buffer_size": 21,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								21,
+								21
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "index/__init__.py",
+					"settings":
+					{
+						"buffer_size": 1084,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								981,
+								981
 							]
 						],
 						"settings":
