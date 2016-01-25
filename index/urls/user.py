@@ -32,12 +32,15 @@ def login_kakao():
         db_session.commit()
 
         result['user'] = user.to_json()
+
+        app.logger.info('success signup')
         return json.dumps(result, ensure_ascii=False)
     
     user = db_session.query(User).filter_by(id=id).one()
     result['user'] = user.to_json()
     result['requestCode'] = 1
     result['requestMessage'] = 'success login'
+    app.logger.info('success login')
     return json.dumps(result, ensure_ascii=False)
 
 @app.route('/get/user/all', methods=['GET'])
@@ -51,6 +54,7 @@ def getAllUsers():
         item = user.to_json()
         result['users'].append(item)
 
+    app.logger.info('success return users')
     return json.dumps(result)
 
 @app.route('/session/validate', methods=['POST'])
@@ -66,7 +70,9 @@ def validateSession():
         result['errorSession'] = session
         return json.dumps(result)
 
+    user = db_session.query(User).filter_by(session=session).one()
     result['requestCode'] = 1
+    result['user'] = user.to_json()
     result['requestMessage'] = 'validate session'
     return json.dumps(result)
 

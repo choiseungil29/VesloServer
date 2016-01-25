@@ -14,20 +14,28 @@ app.logger.info('secret key ' + app.secret_key)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://itnpxmghkouqge:DrNcaRJ86jmr4IwHi9NK3mzHfP@ec2-54-83-204-159.compute-1.amazonaws.com:5432/d5inl38ocf5nlu" # db server uri
 app.config['UPLOAD_FOLDER'] = 'index/static/image'
 
+app.logger.info('1')
+
 import logging
 from logging import StreamHandler
 file_handler = StreamHandler()
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
 
+app.logger.info('1')
+
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+app.logger.info('1')
 
 # import db table
 from index.models import user
 from index.models import meeting
 from index.models import tag
+
+db.create_all()
 
 db_session = db.session()
 
