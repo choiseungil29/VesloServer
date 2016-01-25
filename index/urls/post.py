@@ -26,6 +26,8 @@ def regist_meeting():
     if index.urls.existUserBySession(session) == False:
         result['requestCode'] = -1
         result['requestMessage'] = '등록되지 않은 계정입니다.'
+        app.logger.info('failed create meeting')
+        app.logger.info('not exist user session')
         return json.dumps(result, ensure_ascii=False)
 
     result['requestCode'] = 1
@@ -67,7 +69,7 @@ def regist_meeting():
     db_session.commit()
 
     result['post'] = post.to_json()
-
+    app.logger.info('create meeting')
     return json.dumps(result, ensure_ascii=True)
 
 @app.route('/like/meeting', methods=['GET'])
@@ -106,7 +108,7 @@ def get_all_meeting():
 
     post_all = []
 
-    query = db_session.query(Post).filter_by(session=session)
+    query = db_session.query(Meeting).filter_by(session=session)
     post_all = query.all()
 
     result['meeting'] = []
