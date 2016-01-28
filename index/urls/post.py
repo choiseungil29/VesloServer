@@ -72,23 +72,27 @@ def regist_meeting():
     app.logger.info('create meeting')
     return json.dumps(result, ensure_ascii=True)
 
-@app.route('/like/meeting', methods=['GET'])
+@app.route('/like/meeting', methods=['POST'])
 def like_meeting():
 
     result = {}
     session = request.form['session']
     meeting_id = request.form['id']
 
-    meeting = db_session.query(Post).filter_by(id=meeting_id).one()
-
-    if session in meeting.likes:
-        meeting.likes.remove(session)
+    meeting = db_session.query(Meeting).filter_by(id=meeting_id).one()
+    user = db_session.query(User).filter_by(session=session).one()
+    if user in meeting.likes:
+        meeting.likes.remove(user)
+        app.logger.info('unlike')
     else:
-        meeting.likes.append(session)
-
+        meeting.likes.append(user)
+        app.logger.info('like')
+    
+    db_session.commit()
+    app.logger.info('count : ' + str(len(meeting.likes)))
     result['requestCode'] = 1
     result['requestMessage'] = 'Success like or unlike'
-    result['meeting'] = append.to_json()
+    result['meeting'] = meeting.to_json()
 
     return json.dumps(result, ensure_ascii=False)
 

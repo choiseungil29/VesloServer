@@ -7,6 +7,10 @@ import base64
 from index import db
 from index import app
 
+from index.models import user_meeting
+
+from sqlalchemy.orm import backref, relationship
+
 class User(db.Model):
 
     __tablename__ = "User"
@@ -18,6 +22,8 @@ class User(db.Model):
     registered_on = db.Column('registered_on', db.DateTime, default=db.func.now())
     session = db.Column('session', db.String, unique=True)
     profile_img_url = db.Column('profile_img_url', db.String)
+    
+    like_meetings = db.relationship('Meeting', secondary=user_meeting, backref=backref('User'))
 
     def __init__(self):
         self.password = None

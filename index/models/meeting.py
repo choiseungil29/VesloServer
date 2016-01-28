@@ -3,13 +3,16 @@
 from index import app
 from index import db
 
+from index.models import user_meeting
+
 from sqlalchemy.dialects import postgresql
+from sqlalchemy.orm import backref, relationship
 
 import datetime
 
 class Meeting(db.Model):
 
-    __tablename__ = "Meeting"
+    __tablename__ = 'Meeting'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column('username', db.String)
@@ -29,7 +32,8 @@ class Meeting(db.Model):
 
     registered_on = db.Column('registered_on', db.DateTime, default=db.func.now()) # 등록일자
 
-    likes = db.Column('like', postgresql.ARRAY(postgresql.TEXT))
+    likes = db.relationship('User', secondary=user_meeting, backref=db.backref('Meeting'))
+    #likes = db.Column('like', postgresql.ARRAY(postgresql.TEXT))
     
     def __init__(self):
         self.likes = []
@@ -52,7 +56,7 @@ class Meeting(db.Model):
         item['registered_on'] = str(self.registered_on)
         item['describe'] = self.describe
 
-        item['likes'] = self.likes
+        item['likes'] = len(self.likes)
         return item
 
 
