@@ -56,7 +56,10 @@ class Meeting(db.Model):
         item['registered_on'] = str(self.registered_on)
         item['describe'] = self.describe
 
-        item['likes'] = len(self.likes)
+        item['likes'] = []
+        for user in self.likes:
+            item['likes'].append(user.to_json())
+        item['likesCount'] = len(self.likes)
         return item
 
 
